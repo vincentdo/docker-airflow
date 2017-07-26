@@ -23,6 +23,8 @@ ENV LC_CTYPE en_US.UTF-8
 ENV LC_MESSAGES en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
+COPY requirements.txt ${AIRFLOW_HOME}/requirements.txt
+
 RUN set -ex \
     && buildDeps=' \
         python-dev \
@@ -50,6 +52,7 @@ RUN set -ex \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
     && useradd -ms /bin/bash -d ${AIRFLOW_HOME} airflow \
     && python -m pip install -U pip \
+    && pip install -r ${AIRFLOW_HOME}/requirements.txt \
     && pip install Cython \
     && pip install pytz \
     && pip install pyOpenSSL \
@@ -69,6 +72,12 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+COPY application ${AIRFLOW_HOME}/dags/application
+COPY Offer.json ${AIRFLOW_HOME}/dags/static/ethereum/build/contracts/Offer.json
+COPY index.py ${AIRFLOW_HOME}/dags/index.py
+COPY config.py ${AIRFLOW_HOME}/dags/config.py
+COPY dags.py ${AIRFLOW_HOME}/dags/dags.py
+COPY .env ${AIRFLOW_HOME}/dags/.env
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
