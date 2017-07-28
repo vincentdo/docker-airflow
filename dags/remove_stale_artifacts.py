@@ -15,10 +15,10 @@ default_args = {
     'start_date': datetime(2017, 7, 1)
 }
 
-dag = DAG('scheduled_tasks', default_args=default_args)
+dag = DAG('remove_stale_artifacts', default_args=default_args)
 
 remove_stale_artifacts_task = PythonOperator(
-    task_id='remove_stale_artifacts',
+    task_id='remove_stale_artifacts_task',
     provide_context=False,
     python_callable=remove_stale_artifacts,
     dag=dag)

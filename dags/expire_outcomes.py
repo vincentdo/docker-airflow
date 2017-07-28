@@ -15,7 +15,7 @@ default_args = {
     'start_date': datetime(2017, 7, 1)
 }
 
-dag = DAG('scheduled_tasks', default_args=default_args)
+dag = DAG('expire_outcomes', default_args=default_args)
 
 expire_outcomes_task = PythonOperator(
     task_id='expire_outcomes_task',

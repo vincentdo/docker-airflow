@@ -15,7 +15,7 @@ default_args = {
     'start_date': datetime(2017, 7, 1)
 }
 
-dag = DAG('scheduled_tasks', default_args=default_args)
+dag = DAG('seed_games', default_args=default_args)
 
 seed_games_task = PythonOperator(
     task_id='seed_games_task',
