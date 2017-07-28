@@ -72,11 +72,11 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+COPY dags ${AIRFLOW_HOME}/dags
 COPY application ${AIRFLOW_HOME}/dags/application
 COPY Offer.json ${AIRFLOW_HOME}/dags/static/ethereum/build/contracts/Offer.json
 COPY index.py ${AIRFLOW_HOME}/dags/index.py
 COPY config.py ${AIRFLOW_HOME}/dags/config.py
-COPY dags.py ${AIRFLOW_HOME}/dags/dags.py
 COPY .env ${AIRFLOW_HOME}/dags/.env
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
